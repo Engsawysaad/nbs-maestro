@@ -1,0 +1,20 @@
+[build-system]
+requires = ["flit_core >=3.4,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "nbs_school"
+authors = [
+    { name = "Nottingham British School", email = "it@nottinghambritishschool.edu" }
+]
+description = "Nottingham British School - Customizations for Education, Accounting, HR, CRM, and Buying modules"
+requires-python = ">=3.10"
+readme = "README.md"
+dynamic = ["version"]
+dependencies = []
+
+[tool.bench.frappe-dependencies]
+frappe = ">=16.0.0,<17.0.0"
+
+[tool.bench]
+app_type = "custom"
