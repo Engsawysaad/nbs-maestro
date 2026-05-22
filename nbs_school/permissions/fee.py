@@ -3,8 +3,36 @@ import frappe
 
 def fee_query_conditions(user):
     """
-    CUST-045: Permission query conditions for Fee-related documents
-    (Fee Schedule, Sales Invoice for fees).
+    CUST-045: Permission query conditions for Fee-related documents.
+
+    Dispatches to the correct per-doctype function based on the
+    currently queried DocType (available via frappe.local.form_dict.doctype).
+    """
+    doctype = frappe.local.form_dict.get("doctype") if hasattr(frappe.local, "form_dict") else None
+    if doctype == "Sales Invoice":
+        return _fee_query_conditions_sales_invoice(user)
+    return _fee_query_conditions_fee_schedule(user)
+
+
+def _fee_query_conditions_fee_schedule(user):
+    """
+    Permission query conditions for Fee Schedule.
+    Table name: `tabFee Schedule`
+    """
+    return _build_fee_query("`tabFee Schedule`", user)
+
+
+def _fee_query_conditions_sales_invoice(user):
+    """
+    Permission query conditions for Sales Invoice (fee-related).
+    Table name: `tabSales Invoice`
+    """
+    return _build_fee_query("`tabSales Invoice`", user)
+
+
+def _build_fee_query(table_name, user):
+    """
+    Shared permission query condition builder for fee-related DocTypes.
 
     - NBS Teacher: no fee access (handled by role permissions)
     - NBS Student Portal: sees only their own fee records
@@ -32,14 +60,14 @@ def fee_query_conditions(user):
     if "NBS Student Portal" in roles:
         student = frappe.db.get_value("Student", {"student_email_id": user}, "name")
         if student:
-            return f"`tab{doc_table_name}`.student = {frappe.db.escape(student)}"
+            return f"{table_name}.student = {frappe.db.escape(student)}"
         return "1=0"
 
     if "NBS Parent" in roles:
         guardian = frappe.db.get_value("Guardian", {"email_address": user}, "name")
         if guardian:
             return (
-                "`tab{doc_table_name}`.student IN ("
+                f"{table_name}.student IN ("
                 "SELECT student FROM `tabGuardian Student` "
                 f"WHERE parent = {frappe.db.escape(guardian)}"
                 ")"
