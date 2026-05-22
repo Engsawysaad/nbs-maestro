@@ -25,7 +25,6 @@ def on_update_auto_link_guardian(doc, method):
 
     _link_guardian_to_student(guardian_name, doc.name)
     _set_guardian_user_permission(guardian_name, doc.name)
-    _set_guardian_user_permission(guardian_name, doc.student_email_id, "Student")
 
 
 def _find_or_create_guardian(student_doc, email):
@@ -95,6 +94,15 @@ def _set_guardian_user_permission(guardian_name, for_value, allow_doctype=None):
         return
 
     dt = allow_doctype or "Student"
+
+    # Skip if the guardian has no User account yet — permission can be added
+    # later when portal access is granted.
+    if not frappe.db.exists("User", guardian_email):
+        frappe.log_error(
+            message=f"Skipped User Permission for {dt} {for_value}: no User exists for {guardian_email}",
+            title="NBS Guardian User Permission Skipped",
+        )
+        return
 
     existing = frappe.get_all(
         "User Permission",
