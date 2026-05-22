@@ -89,7 +89,9 @@ scheduler_events = {
         "nbs_school.attendance.absence_notification.daily_absence_summary",
     ],
     # === CUST-026: Termly fee invoice generation (runs 1st of month at 2 AM) ===
-    "cron": [
-        "0 2 1 * * nbs_school.accounting.fee_invoicing.generate_termly_fee_invoices",
-    ],
+    "cron": {
+        "0 2 1 * *": [
+            "nbs_school.accounting.fee_invoicing.generate_termly_fee_invoices",
+        ],
+    },
 }
