@@ -74,7 +74,7 @@ def _link_guardian_to_student(guardian_name, student_name):
     try:
         guardian_doc = frappe.get_doc("Guardian", guardian_name)
         guardian_doc.append(
-            "guardian_students",
+            "students",
             {
                 "student": student_name,
             },
