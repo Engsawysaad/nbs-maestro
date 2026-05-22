@@ -11,6 +11,7 @@ required_apps = ["frappe", "erpnext"]
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "=", "NBS School"]]},
     {"dt": "Property Setter", "filters": [["module", "=", "NBS School"]]},
+    {"dt": "Print Format", "filters": [["module", "=", "NBS School"]]},
 ]
 
 # ========================================================
