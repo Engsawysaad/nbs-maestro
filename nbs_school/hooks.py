@@ -7,6 +7,13 @@ app_license = "MIT"
 
 required_apps = ["frappe", "erpnext"]
 
+# ========================================================
+# After Migrate — sync custom fields for CUST-017 et al.
+# ========================================================
+after_migrate = [
+    "nbs_school.attendance.custom_fields.after_migrate",
+]
+
 # Fixtures
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "=", "NBS School"]]},
