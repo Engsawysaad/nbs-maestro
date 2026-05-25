@@ -1,0 +1,145 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="nbs-portal-page">
+    {% include "templates/includes/portal_header.html" %}
+
+    {% if student_data %}
+        <!-- Stats Row -->
+        <div class="nbs-stat-row">
+            <div class="nbs-stat-card">
+                <div class="stat-value">{{ student_data.attendance.percentage|round|int if student_data.attendance else 0 }}%</div>
+                <div class="stat-label">{{ _("Attendance") }}</div>
+            </div>
+            <div class="nbs-stat-card">
+                <div class="stat-value">{{ student_data.grades|length }}</div>
+                <div class="stat-label">{{ _("Assessments") }}</div>
+            </div>
+            <div class="nbs-stat-card">
+                <div class="stat-value">{{ student_data.fees|length }}</div>
+                <div class="stat-label">{{ _("Fee Records") }}</div>
+            </div>
+            <div class="nbs-stat-card">
+                <div class="stat-value">{{ student_data.timetable|length }}</div>
+                <div class="stat-label">{{ _("Scheduled Classes") }}</div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="nbs-dashboard-grid">
+            <!-- Attendance Card -->
+            <div class="nbs-card">
+                <div class="nbs-card-header">
+                    <h3>{{ _("Attendance Summary") }}</h3>
+                    <span class="badge {{ 'bg-success' if (student_data.attendance.percentage|default(0)) >= 90 else 'bg-warning' }}">
+                        {{ student_data.attendance.percentage|round(1) if student_data.attendance else 0 }}%
+                    </span>
+                </div>
+                <div class="nbs-card-body">
+                    {% if student_data.attendance %}
+                    <table class="nbs-table">
+                        <tr><td>{{ _("Present") }}</td><td><strong>{{ student_data.attendance.present }}</strong></td></tr>
+                        <tr><td>{{ _("Absent") }}</td><td><strong class="text-danger">{{ student_data.attendance.absent }}</strong></td></tr>
+                        <tr><td>{{ _("Late") }}</td><td><strong class="text-warning">{{ student_data.attendance.late }}</strong></td></tr>
+                    </table>
+                    {% else %}
+                    <div class="nbs-empty">{{ _("No attendance data available.") }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Grades Card -->
+            <div class="nbs-card">
+                <div class="nbs-card-header">
+                    <h3>{{ _("Recent Grades") }}</h3>
+                </div>
+                <div class="nbs-card-body">
+                    {% if student_data.grades %}
+                    <table class="nbs-table">
+                        <thead><tr><th>{{ _("Course") }}</th><th>{{ _("Grade") }}</th><th>{{ _("Date") }}</th></tr></thead>
+                        <tbody>
+                        {% for g in student_data.grades[:5] %}
+                        <tr><td>{{ g.course }}</td><td><strong>{{ g.grade or g.score }}</strong></td><td>{{ g.date }}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="nbs-empty">{{ _("No assessment results yet.") }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Fees Card -->
+            <div class="nbs-card">
+                <div class="nbs-card-header">
+                    <h3>{{ _("Fee Status") }}</h3>
+                </div>
+                <div class="nbs-card-body">
+                    {% if student_data.fees %}
+                    <table class="nbs-table">
+                        <thead><tr><th>{{ _("Invoice") }}</th><th>{{ _("Amount") }}</th><th>{{ _("Status") }}</th></tr></thead>
+                        <tbody>
+                        {% for f in student_data.fees[:5] %}
+                        <tr>
+                            <td>{{ f.invoice_no }}</td>
+                            <td>{{ frappe.utils.fmt_money(f.grand_total) }}</td>
+                            <td>
+                                {% if f.outstanding_amount <= 0 %}
+                                <span class="status-paid">{{ _("Paid") }}</span>
+                                {% else %}
+                                <span class="status-unpaid">{{ _("Outstanding") }}: {{ frappe.utils.fmt_money(f.outstanding_amount) }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="nbs-empty">{{ _("No fee records.") }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Timetable Card -->
+            <div class="nbs-card">
+                <div class="nbs-card-header">
+                    <h3>{{ _("Timetable") }}</h3>
+                </div>
+                <div class="nbs-card-body">
+                    {% if student_data.timetable %}
+                    <table class="nbs-table">
+                        <thead><tr><th>{{ _("Course") }}</th><th>{{ _("Day") }}</th><th>{{ _("Time") }}</th><th>{{ _("Room") }}</th></tr></thead>
+                        <tbody>
+                        {% for t in student_data.timetable[:8] %}
+                        <tr><td>{{ t.course }}</td><td>{{ t.day or _(frappe.format_date(t.date, "EEEE")) }}</td><td>{{ t.from_time }} - {{ t.to_time }}</td><td>{{ t.room or "" }}</td></tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="nbs-empty">{{ _("No timetable available.") }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% else %}
+    <div class="alert alert-info">{{ _("No linked students found. Please contact the school administration.") }}</div>
+    {% endif %}
+
+    <!-- Announcements -->
+    {% if announcements %}
+    <div class="nbs-card">
+        <div class="nbs-card-header"><h3>{{ _("School Announcements") }}</h3></div>
+        <div class="nbs-card-body">
+            <ul class="nbs-announcement-list">
+            {% for a in announcements[:3] %}
+            <li class="nbs-announcement-item">
+                <div class="title">{{ a.title }}</div>
+                <div class="meta">{{ frappe.format_date(a.publish_date) }}</div>
+                <div class="content">{{ a.content[:200] }}{% if a.content|length > 200 %}...{% endif %}</div>
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

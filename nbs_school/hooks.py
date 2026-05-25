@@ -95,6 +95,9 @@ scheduler_events = {
         "nbs_school.accounting.late_fees.apply_late_fees_daily",
         # === CUST-017: Daily absence summary ===
         "nbs_school.attendance.absence_notification.daily_absence_summary",
+        # === CUST-035: Daily visa expiry check ===
+        "nbs_school.hr.visa_alert.check_visa_expiry_daily",
+        # NOTE: CUST-033 WPS generation is on-demand via whitelist, not scheduled
     ],
     # === CUST-026: Termly fee invoice generation (runs 1st of month at 2 AM) ===
     "cron": {
@@ -103,3 +106,27 @@ scheduler_events = {
         ],
     },
 }
+
+# ========================================================
+# Website / Portal Configuration (Section 7)
+# ========================================================
+
+# Inject portal CSS on all web pages
+app_include_css = [
+    "/assets/nbs_school/css/portal.css",
+    "/assets/nbs_school/css/portal-rtl.css",
+]
+
+# Role-based homepages
+role_home_page = {
+    "NBS Parent": "parent-dashboard",
+    "Student": "student-dashboard",
+}
+
+# Website context overrides
+website_context = {
+    "favicon": "/assets/nbs_school/images/favicon.png",
+}
+
+# Website generators (for DocTypes with has_web_view)
+website_generators = ["NBS Announcement"]

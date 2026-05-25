@@ -1,0 +1,21 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="nbs-portal-page">
+    <h1>{{ _("School Announcements") }}</h1>
+    {% if announcements %}
+    <ul class="nbs-announcement-list">
+        {% for a in announcements %}
+        <li class="nbs-announcement-item">
+            <div class="title">{{ a.title }}</div>
+            <div class="meta">{{ frappe.format_date(a.publish_date) }}
+                {% if a.priority == "Urgent" %}<span class="badge bg-danger ms-2">{{ _("Urgent") }}</span>{% endif %}
+            </div>
+            <div class="content">{{ a.content }}</div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-info">{{ _("No announcements at this time.") }}</div>
+    {% endif %}
+</div>
+{% endblock %}

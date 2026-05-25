@@ -1,0 +1,20 @@
+{
+ "doctype": "Report",
+ "name": "NBS Sibling Discount",
+ "report_name": "nbs_sibling_discount",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "reference_doctype": "Sales Invoice"
+}

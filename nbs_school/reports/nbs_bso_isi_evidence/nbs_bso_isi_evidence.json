@@ -1,0 +1,20 @@
+{
+ "doctype": "Report",
+ "name": "NBS BSO/ISI Evidence Report",
+ "report_name": "nbs_bso_isi_evidence",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Academic Admin"
+  },
+  {
+   "role": "School Principal"
+  }
+ ],
+ "reference_doctype": "Assessment Plan"
+}

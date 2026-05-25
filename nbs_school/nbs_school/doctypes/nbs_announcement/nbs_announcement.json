@@ -1,0 +1,39 @@
+{
+ "doctype": "DocType",
+ "name": "NBS Announcement",
+ "module": "NBS School",
+ "custom": 0,
+ "is_submittable": 0,
+ "is_child_table": 0,
+ "track_changes": 1,
+ "autoname": "format:ANNO-{YYYY}-{#####}",
+ "fields": [
+  {"fieldname": "title", "label": "Title", "fieldtype": "Data", "reqd": 1},
+  {"fieldname": "content", "label": "Content", "fieldtype": "Text Editor", "reqd": 1},
+  {"fieldname": "publish_date", "label": "Publish Date", "fieldtype": "Date", "reqd": 1},
+  {"fieldname": "published", "label": "Published", "fieldtype": "Check", "default": 0},
+  {"fieldname": "audience", "label": "Target Audience", "fieldtype": "Select", "options": "\nAll Parents\nStudents\nAll Parents & Students\nYear Group\nSection\nStaff", "reqd": 1, "default": "All Parents & Students"},
+  {"fieldname": "audience_year_group", "label": "Year Group", "fieldtype": "Link", "options": "Student Group", "depends_on": "eval:doc.audience=='Year Group'"},
+  {"fieldname": "audience_section", "label": "Section", "fieldtype": "Link", "options": "Student Group", "depends_on": "eval:doc.audience=='Section'"},
+  {"fieldname": "priority", "label": "Priority", "fieldtype": "Select", "options": "\nNormal\nHigh\nUrgent", "default": "Normal"},
+  {"fieldname": "created_by", "label": "Created By", "fieldtype": "Link", "options": "User", "default": "__user"},
+  {"fieldname": "expiry_date", "label": "Expiry Date", "fieldtype": "Date"}
+ ],
+ "permissions": [
+  {"role": "System Manager", "perm_read": 1, "perm_write": 1, "perm_create": 1, "perm_delete": 1},
+  {"role": "NBS Head of School", "perm_read": 1, "perm_write": 1, "perm_create": 1, "perm_delete": 0},
+  {"role": "NBS CEO", "perm_read": 1, "perm_write": 1, "perm_create": 1, "perm_delete": 1},
+  {"role": "NBS Parent", "perm_read": 1, "perm_write": 0, "perm_create": 0, "perm_delete": 0},
+  {"role": "Student", "perm_read": 1, "perm_write": 0, "perm_create": 0, "perm_delete": 0}
+ ],
+ "has_web_view": 1,
+ "allow_guest_to_view": 0,
+ "route": "announcements",
+ "is_published_field": "published",
+ "search_fields": "title",
+ "title_field": "title",
+ "image_field": "",
+ "sort_field": "publish_date",
+ "sort_order": "DESC",
+ "track_seen": 1
+}

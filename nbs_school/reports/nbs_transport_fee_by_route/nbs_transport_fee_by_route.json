@@ -1,0 +1,14 @@
+{
+ "doctype": "Report",
+ "name": "NBS Transport Fee by Route",
+ "report_name": "nbs_transport_fee_by_route",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {"role": "Accounts Manager"},
+  {"role": "Accounts User"},
+  {"role": "System Manager"}
+ ],
+ "reference_doctype": "Fee Structure"
+}

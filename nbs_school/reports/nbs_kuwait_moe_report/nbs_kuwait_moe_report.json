@@ -1,0 +1,20 @@
+{
+ "doctype": "Report",
+ "name": "NBS Kuwait MoE Report",
+ "report_name": "nbs_kuwait_moe_report",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Academic Admin"
+  },
+  {
+   "role": "School Principal"
+  }
+ ],
+ "reference_doctype": "Student"
+}

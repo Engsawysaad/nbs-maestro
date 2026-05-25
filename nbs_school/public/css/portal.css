@@ -1,0 +1,323 @@
+/* ===========================================================
+   NBS Portal Styles — Parent & Student Dashboards
+   Nottingham British School / Flow Soft LLC
+   =========================================================== */
+
+/* ── Dashboard Layout ─────────────────────────────────────── */
+.nbs-portal-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.nbs-portal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.nbs-portal-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a202c;
+    margin: 0;
+}
+
+.nbs-portal-header .student-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.nbs-portal-header .student-selector select {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 0.375rem;
+    background: #fff;
+    font-size: 0.95rem;
+    min-width: 200px;
+}
+
+/* ── Dashboard Cards Grid ─────────────────────────────────── */
+.nbs-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.nbs-card {
+    background: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+}
+
+.nbs-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.nbs-card-header {
+    padding: 1rem 1.25rem;
+    background: #f7fafc;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nbs-card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.nbs-card-header .badge {
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+}
+
+.nbs-card-body {
+    padding: 1.25rem;
+}
+
+.nbs-card-body p {
+    margin: 0;
+    color: #718096;
+    font-size: 0.95rem;
+}
+
+/* ── Stat Cards (summary row) ─────────────────────────────── */
+.nbs-stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.nbs-stat-card {
+    background: #fff;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e2e8f0;
+}
+
+.nbs-stat-card .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2b6cb0;
+    line-height: 1.2;
+}
+
+.nbs-stat-card .stat-label {
+    font-size: 0.85rem;
+    color: #718096;
+    margin-top: 0.25rem;
+}
+
+/* ── Tables ───────────────────────────────────────────────── */
+.nbs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.nbs-table th {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 2px solid #e2e8f0;
+    background: #f7fafc;
+}
+
+.nbs-table td {
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #2d3748;
+}
+
+.nbs-table tr:hover td {
+    background: #f7fafc;
+}
+
+/* ── Status Badges ────────────────────────────────────────── */
+.status-paid {
+    background: #c6f6d5;
+    color: #276749;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-partial {
+    background: #fefcbf;
+    color: #975a16;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-unpaid {
+    background: #fed7d7;
+    color: #9b2c2c;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-present {
+    background: #c6f6d5;
+    color: #276749;
+}
+
+.status-absent {
+    background: #fed7d7;
+    color: #9b2c2c;
+}
+
+.status-late {
+    background: #fefcbf;
+    color: #975a16;
+}
+
+/* ── Announcement List ────────────────────────────────────── */
+.nbs-announcement-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nbs-announcement-item {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.nbs-announcement-item:last-child {
+    border-bottom: none;
+}
+
+.nbs-announcement-item .title {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.25rem;
+}
+
+.nbs-announcement-item .meta {
+    font-size: 0.8rem;
+    color: #a0aec0;
+}
+
+.nbs-announcement-item .content {
+    margin-top: 0.5rem;
+    color: #4a5568;
+    font-size: 0.9rem;
+}
+
+/* ── Fee Timeline ─────────────────────────────────────────── */
+.nbs-fee-timeline {
+    list-style: none;
+    padding: 0;
+}
+
+.nbs-fee-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.nbs-fee-item:last-child {
+    border-bottom: none;
+}
+
+.nbs-fee-item .fee-desc {
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.nbs-fee-item .fee-amount {
+    font-weight: 600;
+}
+
+/* ── Timetable ────────────────────────────────────────────── */
+.nbs-timetable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.nbs-timetable th {
+    text-align: center;
+    padding: 0.5rem;
+    font-weight: 600;
+    color: #4a5568;
+    background: #edf2f7;
+    border: 1px solid #e2e8f0;
+}
+
+.nbs-timetable td {
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    color: #2d3748;
+    vertical-align: top;
+}
+
+.nbs-timetable td .course-name {
+    font-weight: 500;
+    display: block;
+}
+
+.nbs-timetable td .time {
+    font-size: 0.75rem;
+    color: #718096;
+    display: block;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .nbs-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .nbs-stat-row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .nbs-portal-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+}
+
+/* ── Loading & Empty States ───────────────────────────────── */
+.nbs-loading {
+    text-align: center;
+    padding: 3rem;
+    color: #a0aec0;
+}
+
+.nbs-empty {
+    text-align: center;
+    padding: 2rem;
+    color: #a0aec0;
+    font-style: italic;
+}
+
+/* ── Print ────────────────────────────────────────────────── */
+@media print {
+    .nbs-portal-header .student-selector { display: none; }
+    .nbs-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+}

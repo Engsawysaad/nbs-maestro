@@ -1,0 +1,16 @@
+<div class="list-group sidebar-nav">
+    {% set portal_pages = [
+        {"route": "/parent-dashboard", "label": _("Parent Dashboard"), "icon": "home", "roles": ["NBS Parent"]},
+        {"route": "/student-dashboard", "label": _("Student Dashboard"), "icon": "user", "roles": ["Student"]},
+        {"route": "/announcements", "label": _("Announcements"), "icon": "bullhorn", "roles": ["NBS Parent", "Student", "NBS Head of School", "NBS CEO"]},
+    ] %}
+
+    {% for page in portal_pages %}
+        {% if page.roles and frappe.session.user != "Guest" %}
+            <a href="{{ page.route }}"
+               class="list-group-item list-group-item-action {{ 'active' if page.route in frappe.request.path else '' }}">
+                {{ page.label }}
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>

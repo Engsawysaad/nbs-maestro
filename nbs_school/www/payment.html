@@ -1,0 +1,73 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="nbs-portal-page">
+    <h1>{{ _("Online Fee Payment") }}</h1>
+    <div class="alert alert-info">
+        {{ _("Pay school fees online via KNET, Credit Card, or Benefit Pay.") }}
+    </div>
+
+    <div class="nbs-card">
+        <div class="nbs-card-header"><h3>{{ _("Select Payment Method") }}</h3></div>
+        <div class="nbs-card-body">
+            {% set invoice = frappe.form_dict.invoice or '' %}
+            {% if invoice %}
+            <p>{{ _("Paying for Invoice") }}: <strong>{{ invoice }}</strong></p>
+            {% endif %}
+
+            <div class="d-flex gap-3 flex-wrap" style="margin:1.5rem 0">
+                <button class="btn btn-primary btn-lg" onclick="payWith('KNET')">
+                    <strong>KNET</strong>
+                </button>
+                <button class="btn btn-success btn-lg" onclick="payWith('Credit Card')">
+                    <strong>{{ _("Credit Card") }}</strong>
+                </button>
+                <button class="btn btn-info btn-lg" onclick="payWith('Benefit Pay')">
+                    <strong>Benefit Pay</strong>
+                </button>
+            </div>
+
+            <hr>
+            <div id="payment-status"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function payWith(method) {
+    const params = new URLSearchParams(window.location.search);
+    const invoice = params.get('invoice') || '{{ invoice or "" }}';
+
+    if (!invoice) {
+        document.getElementById('payment-status').innerHTML =
+            '<div class="alert alert-warning">{{ _("Please specify an invoice number: ?invoice=INV-XXXX") }}</div>';
+        return;
+    }
+
+    document.getElementById('payment-status').innerHTML =
+        '<div class="alert alert-info">{{ _("Processing") }} ' + method + ' {{ _("payment...") }}</div>';
+
+    frappe.call({
+        method: "nbs_school.portal.payment_api.initiate_payment",
+        args: {
+            invoice_no: invoice,
+            payment_method: method
+        },
+        callback: function(r) {
+            if (r.message && r.message.success) {
+                document.getElementById('payment-status').innerHTML =
+                    '<div class="alert alert-success">{{ _("Payment initiated. Redirecting...") }}</div>';
+                window.location.href = r.message.redirect_url;
+            } else {
+                var errorMsg = r.message ? (r.message.error || '{{ _("Payment failed") }}') : '{{ _("Payment failed") }}';
+                document.getElementById('payment-status').innerHTML =
+                    '<div class="alert alert-danger">' + errorMsg + '</div>';
+            }
+        },
+        error: function(r) {
+            document.getElementById('payment-status').innerHTML =
+                '<div class="alert alert-danger">{{ _("An error occurred. Please try again.") }}</div>';
+        }
+    });
+}
+</script>
+{% endblock %}

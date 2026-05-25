@@ -1,0 +1,23 @@
+{
+ "doctype": "Report",
+ "name": "NBS IGCSE Entry Summary",
+ "report_name": "nbs_igcse_entry_summary",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Academic Admin"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "reference_doctype": "Course Enrollment"
+}

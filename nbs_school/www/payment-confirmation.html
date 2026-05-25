@@ -1,0 +1,53 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+<div class="nbs-portal-page text-center">
+    <h1>{{ _("Payment Confirmation") }}</h1>
+
+    <div class="nbs-card" style="max-width:500px;margin:2rem auto">
+        <div class="nbs-card-body" id="confirmation-status" style="padding:2rem">
+            <div class="nbs-loading">
+                <div class="spinner-border text-primary mb-3" role="status"></div>
+                <p>{{ _("Verifying payment...") }}</p>
+            </div>
+        </div>
+    </div>
+
+    <p><a href="/parent-dashboard" class="btn btn-outline-primary">{{ _("Back to Dashboard") }}</a></p>
+</div>
+
+<script>
+frappe.call({
+    method: "nbs_school.portal.payment_api.verify_payment",
+    args: {
+        payment_entry_name: window.location.pathname.split('/').pop()
+    },
+    callback: function(r) {
+        var el = document.getElementById('confirmation-status');
+        if (!el) return;
+        if (r.message && r.message.status === 'completed') {
+            el.innerHTML = '' +
+                '<div class="text-success mb-3" style="font-size:3rem">&#10003;</div>' +
+                '<h3 class="text-success">{{ _("Payment Successful") }}</h3>' +
+                '<p>{{ _("Amount") }}: ' + r.message.amount + '</p>' +
+                '<p>{{ _("Reference") }}: ' + r.message.invoice + '</p>';
+        } else if (r.message && r.message.status === 'pending') {
+            el.innerHTML = '' +
+                '<div class="text-warning mb-3" style="font-size:3rem">&#8987;</div>' +
+                '<h3 class="text-warning">{{ _("Payment Pending") }}</h3>' +
+                '<p>{{ _("Your payment is being processed.") }}</p>';
+        } else {
+            el.innerHTML = '' +
+                '<div class="text-danger mb-3" style="font-size:3rem">&#10007;</div>' +
+                '<h3 class="text-danger">{{ _("Payment Failed") }}</h3>' +
+                '<p>{{ _("Please contact the finance department.") }}</p>';
+        }
+    },
+    error: function() {
+        document.getElementById('confirmation-status').innerHTML =
+            '<div class="text-danger mb-3" style="font-size:3rem">&#10007;</div>' +
+            '<h3 class="text-danger">{{ _("Verification Error") }}</h3>' +
+            '<p>{{ _("Could not verify payment status.") }}</p>';
+    }
+});
+</script>
+{% endblock %}

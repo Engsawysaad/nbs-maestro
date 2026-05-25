@@ -1,0 +1,20 @@
+{
+ "doctype": "Report",
+ "name": "NBS Zakat Calculation",
+ "report_name": "nbs_zakat_calculation",
+ "report_type": "Script Report",
+ "is_standard": "Yes",
+ "module": "NBS School",
+ "roles": [
+  {
+   "role": "Accounts Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "System Manager"
+  }
+ ],
+ "reference_doctype": "GL Entry"
+}

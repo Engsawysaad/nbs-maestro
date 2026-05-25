@@ -1,0 +1,24 @@
+<div class="nbs-portal-header">
+    <h1>{{ portal_title or _("Dashboard") }}</h1>
+    <div class="d-flex align-items-center gap-3">
+        {% if students %}
+        <div class="student-selector">
+            <label for="student-select">{{ _("Student") }}:</label>
+            <select id="student-select" class="form-control form-control-sm"
+                    onchange="window.location.href=window.location.pathname + '?student=' + this.value">
+                {% for s in students %}
+                <option value="{{ s.name }}" {{ 'selected' if s.name == selected_student else '' }}>
+                    {{ s.student_name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        {% endif %}
+
+        <div class="nbs-lang-switcher">
+            {% set current_lang = frappe.session.lang or 'en' %}
+            <a href="/?lang=en" class="{{ 'active' if current_lang == 'en' else '' }}">EN</a>
+            <a href="/?lang=ar" class="{{ 'active' if current_lang == 'ar' else '' }}">AR</a>
+        </div>
+    </div>
+</div>

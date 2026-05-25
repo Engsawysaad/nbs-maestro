@@ -1,0 +1,84 @@
+/* ===========================================================
+   NBS Portal — RTL / Arabic Overrides (CUST-043)
+   =========================================================== */
+
+/* ── Table text alignment ─────────────────────────────────── */
+[dir="rtl"] .nbs-table th,
+[dir="rtl"] .nbs-table td {
+    text-align: right;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+[dir="rtl"] .nbs-portal-header {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nbs-portal-header h1 {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* ── Card header ──────────────────────────────────────────── */
+[dir="rtl"] .nbs-card-header {
+    flex-direction: row-reverse;
+}
+
+/* ── Fee items ────────────────────────────────────────────── */
+[dir="rtl"] .nbs-fee-item {
+    flex-direction: row-reverse;
+}
+
+/* ── Announcement items ───────────────────────────────────── */
+[dir="rtl"] .nbs-announcement-item {
+    text-align: right;
+}
+
+/* ── Stat row ─────────────────────────────────────────────── */
+[dir="rtl"] .nbs-stat-row {
+    direction: ltr; /* keep numbers LTR */
+}
+
+[dir="rtl"] .nbs-stat-card .stat-value {
+    direction: ltr;
+    unicode-bidi: embed;
+}
+
+/* ── Timetable ────────────────────────────────────────────── */
+[dir="rtl"] .nbs-timetable th,
+[dir="rtl"] .nbs-timetable td {
+    text-align: center; /* keep centered */
+}
+
+/* ── General Arabic font adjustments ──────────────────────── */
+[lang="ar"] body,
+[lang="ar"] .nbs-portal-page {
+    font-family: "Noto Sans Arabic", "Tahoma", sans-serif;
+    line-height: 1.8;
+}
+
+[lang="ar"] .nbs-card-header h3 {
+    letter-spacing: 0;
+}
+
+/* ── Language switcher ────────────────────────────────────── */
+.nbs-lang-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nbs-lang-switcher a {
+    padding: 0.3rem 0.6rem;
+    border-radius: 0.25rem;
+    font-size: 0.85rem;
+    text-decoration: none;
+    color: #4a5568;
+    background: #edf2f7;
+    transition: all 0.15s ease;
+}
+
+.nbs-lang-switcher a:hover,
+.nbs-lang-switcher a.active {
+    background: #2b6cb0;
+    color: #fff;
+}
