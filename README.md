@@ -1,6 +1,6 @@
 # NBS School
 
-Nottingham British School customizations for ERPNext.
+Nottingham British School customizations for ERPNext..
 
 ## Features
 
