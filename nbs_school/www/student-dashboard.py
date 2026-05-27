@@ -7,6 +7,7 @@ def get_context(context):
     context.title = "Student Dashboard"
     context.portal_title = "Student Portal"
     context.show_sidebar = True
+    context.is_guest = frappe.session.user == "Guest"
 
     student = get_own_student()
     if student:

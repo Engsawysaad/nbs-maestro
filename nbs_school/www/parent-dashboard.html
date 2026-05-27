@@ -120,6 +120,10 @@
                 </div>
             </div>
         </div>
+    {% elif is_guest %}
+    <div class="alert alert-info">
+        {{ _("Please <a href='/login'>log in</a> to access the parent dashboard.") }}
+    </div>
     {% else %}
     <div class="alert alert-info">{{ _("No linked students found. Please contact the school administration.") }}</div>
     {% endif %}

@@ -8,6 +8,7 @@ def get_context(context):
     context.title = _("Parent Dashboard")
     context.portal_title = _("Parent Portal")
     context.show_sidebar = True
+    context.is_guest = frappe.session.user == "Guest"
 
     # Get linked students for this guardian
     students = get_linked_students()
