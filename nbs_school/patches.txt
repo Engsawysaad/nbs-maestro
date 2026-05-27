@@ -1,2 +1,3 @@
 nbs_school.patches.enable_track_changes
 nbs_school.patches.ensure_nbs_announcement_doctype
+nbs_school.patches.reload_nbs_announcement_doctype
