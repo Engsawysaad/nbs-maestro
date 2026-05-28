@@ -162,6 +162,14 @@ def get_student_dashboard_data(student, academic_year=None):
 
 
 @frappe.whitelist()
+def render_progress_report_html(student):
+    """Render the NBS School Report Card print format for a student (parent access)."""
+    student_doc = frappe.get_doc("Student", student)
+    pf = frappe.get_doc("Print Format", "NBS School Report Card")
+    html = frappe.render_template(pf.html, {"doc": student_doc})
+    return html
+
+@frappe.whitelist()
 def get_announcements():
     """Get published school announcements."""
     try:

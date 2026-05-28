@@ -52,6 +52,22 @@ def get_own_dashboard_data(student, academic_year=None):
 
 
 @frappe.whitelist()
+def render_progress_report_html(student):
+    """Render the NBS School Report Card print format for a student.
+
+    Bypasses `print_format.get_html()` which routes to weasyprint (broken for Jinja formats
+    that lack format_data layout JSON). Instead renders the Jinja template HTML directly.
+
+    Usage in a Web Page template:
+        {{ frappe.call("nbs_school.portal.student_api.render_progress_report_html", {"student": student_name}) }}
+    """
+    student_doc = frappe.get_doc("Student", student)
+    pf = frappe.get_doc("Print Format", "NBS School Report Card")
+    pf.doc_type = "Student"
+    html = frappe.render_template(pf.html, {"doc": student_doc})
+    return html
+
+@frappe.whitelist()
 def get_own_announcements():
     """Get published announcements visible to Students."""
     try:

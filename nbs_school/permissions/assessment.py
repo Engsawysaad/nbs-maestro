@@ -16,7 +16,7 @@ def assessment_query_conditions(user):
     roles = frappe.get_roles(user)
 
     bypass_roles = {
-        "Administrator", "NBS CEO", "NBS Head of School", "NBS School Admin",
+        "Administrator", "System Manager", "NBS CEO", "NBS Head of School", "NBS School Admin",
         "NBS IT Support", "NBS Board Member", "NBS Finance Manager",
         "NBS Admissions Lead",
     }
@@ -66,7 +66,7 @@ def has_assessment_permission(doc, ptype, user):
     roles = frappe.get_roles(user)
 
     bypass_roles = {
-        "Administrator", "NBS CEO", "NBS Head of School", "NBS School Admin",
+        "Administrator", "System Manager", "NBS CEO", "NBS Head of School", "NBS School Admin",
         "NBS IT Support", "NBS Board Member",
     }
     if bypass_roles & set(roles):
