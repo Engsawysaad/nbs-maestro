@@ -17,7 +17,15 @@ class NBSPrintFormatOverride(Document):
         if self.print_format_type == "Jinja" and self.html:
             doc = frappe.get_doc(self.doc_type, docname)
             doc.check_permission("print")
-            return frappe.render_template(self.html, {"doc": doc})
+            html = frappe.render_template(self.html, {"doc": doc})
+
+            # The print format's CSS is stored in a separate `css` field.
+            # Include it inline so styling (layout, colors, fonts) renders
+            # correctly when the HTML is embedded in a web page.
+            if self.css:
+                html = f"<style>\n{self.css}\n</style>\n{html}"
+
+            return html
 
         # For Page Builder / weasyprint formats, use the original path
         return super().get_html(docname, letterhead)
