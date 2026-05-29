@@ -70,10 +70,16 @@ def patch_weasyprint():
             return pdf
         return original_download_pdf(doctype, name, print_format, letterhead)
 
-    # Copy whitelist attribute so Frappe's API handler allows the call
-    patched_download_pdf.whitelisted = getattr(
-        original_download_pdf, "whitelisted", True
-    )
+    # Register in Frappe's whitelist set so API handler allows the call.
+    # Frappe's is_whitelisted() checks "method not in whitelisted" (a set of
+    # function objects), not a function attribute — so we must add our
+    # replacement to the set explicitly.
+    patched_download_pdf.whitelisted = True
+    from frappe import whitelisted as _whitelisted_set, guest_methods as _guest_methods_set
+    _whitelisted_set.add(patched_download_pdf)
+    if original_download_pdf in _guest_methods_set:
+        _guest_methods_set.add(patched_download_pdf)
+
     _weasyprint.download_pdf = patched_download_pdf
 
     _patched = True
