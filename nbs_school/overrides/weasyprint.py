@@ -70,6 +70,10 @@ def patch_weasyprint():
             return pdf
         return original_download_pdf(doctype, name, print_format, letterhead)
 
+    # Copy whitelist attribute so Frappe's API handler allows the call
+    patched_download_pdf.whitelisted = getattr(
+        original_download_pdf, "whitelisted", True
+    )
     _weasyprint.download_pdf = patched_download_pdf
 
     _patched = True
