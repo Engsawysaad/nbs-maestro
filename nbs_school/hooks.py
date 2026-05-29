@@ -108,6 +108,16 @@ scheduler_events = {
 }
 
 # ========================================================
+# DocType Class Extensions (v16+ mixin-based)
+# ========================================================
+extend_doctype_class = {
+    # Override PrintFormat.get_html() — Jinja-type formats crash weasyprint
+    # because they lack format_data (Page Builder layout JSON). This mixin
+    # renders their Jinja HTML directly.
+    "Print Format": ["nbs_school.overrides.print_format.NBSPrintFormatOverride"],
+}
+
+# ========================================================
 # Website / Portal Configuration (Section 7)
 # ========================================================
 
